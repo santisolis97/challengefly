@@ -8,8 +8,8 @@ import axios from "axios";
 function App() {
   const [searchInput, setSearchInput] = useState("");
   const [search, setSearch] = useState(false);
-  const [defResults, setDefResults] = useState({});
-  const [searchResults, setSearchResults] = useState({});
+  const [defResults, setDefResults] = useState(null);
+  const [searchResults, setSearchResults] = useState(null);
   const [loading, setLoading] = useState(true);
   const apiKey = "eeec2429b31a143e915ed959aad485f0";
   const handleSearchInputChange = (event) => {
@@ -81,7 +81,18 @@ function App() {
             </form>
           </div>
         </div>
-        <Movies results={defResults} loading={loading}></Movies>
+        {searchResults && (
+          <div className="">
+            <h3>Search results:</h3>
+            <Movies results={searchResults} loading={loading}></Movies>
+          </div>
+        )}
+        {!searchResults && (
+          <div className="">
+            <h3>Top rated movies:</h3>
+            <Movies results={defResults} loading={loading}></Movies>
+          </div>
+        )}
       </div>
     </div>
   );

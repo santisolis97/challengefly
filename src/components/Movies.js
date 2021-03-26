@@ -12,7 +12,6 @@ function Movies(props) {
       )}
       {!props.loading && (
         <div>
-          <h3>Top rated movies:</h3>
           <div className="row">
             {props.results.results.map((item, index) => (
               <div key={index} className="col-3">
