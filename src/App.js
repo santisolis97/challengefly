@@ -28,7 +28,10 @@ function App() {
       }
     };
     const fetchSearch = () => {
-      const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${searchInput}&page=1&include_adult=false`;
+      const url =
+        searchInput === ""
+          ? `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_video=false&page=1`
+          : `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${searchInput}&page=1&include_adult=false`;
       axios
         .get(url)
         .then(function (res) {
@@ -44,7 +47,7 @@ function App() {
         });
     };
     const fetchTopRatedMovies = () => {
-      const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US&page=1`;
+      const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_video=false&page=1`;
       axios.get(url).then((res) => {
         // setTopRatedMovies(res.data);
         setDefResults(res.data);

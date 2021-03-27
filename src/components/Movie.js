@@ -5,7 +5,11 @@ function Movie(props) {
     <div>
       <div className="card" styles="width: 18rem;">
         <img
-          src={`https://www.themoviedb.org/t/p/w220_and_h330_face${props.result.poster_path}`}
+          src={
+            props.result.poster_path !== null
+              ? `https://www.themoviedb.org/t/p/w220_and_h330_face${props.result.poster_path}`
+              : "https://www.meme-arsenal.com/memes/73d32145bdc3c3defde8166c38bb50f3.jpg"
+          }
           className="card-img-top"
           alt="..."
         />
