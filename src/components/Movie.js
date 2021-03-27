@@ -8,10 +8,7 @@ const Card = styled.div`
   min-height: 550px !important;
   border-radius: 25px;
 `;
-const CardBody = styled.div`
-  padding-bottom: 0px;
-  max-height: 120px;
-`;
+const CardBody = styled.div``;
 const Titled = styled.p`
   min-height: 55px;
   font-weight: bold;
@@ -36,8 +33,8 @@ function Movie(props) {
         />
         <CardBody className="card-body">
           <Titled className="card-text">{props.result.title}</Titled>
+          <ComplexPopover movie={props}></ComplexPopover>
         </CardBody>
-        <ComplexPopover movie={props}></ComplexPopover>
       </Card>
     </div>
   );
