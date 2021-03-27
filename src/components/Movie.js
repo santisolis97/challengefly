@@ -5,6 +5,11 @@ import styled from "styled-components";
 function Movie(props) {
   const Card = styled.div`
     margin-bottom: 20px;
+    border: 2px solid #d8d8d8;
+  `;
+  const Titled = styled.p`
+    font-weight: bold;
+    font-size: 18px;
   `;
   return (
     <div>
@@ -19,7 +24,7 @@ function Movie(props) {
           alt="..."
         />
         <div className="card-body">
-          <p className="card-text">{props.result.title}</p>
+          <Titled className="card-text">{props.result.title}</Titled>
           <ComplexPopover movie={props}></ComplexPopover>
         </div>
       </Card>

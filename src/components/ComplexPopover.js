@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap";
+import styled from "styled-components";
 
 function ComplexPopover(props) {
   const [popoverOpen, setPopoverOpen] = useState(false);
   const togglePopover = () => {
     setPopoverOpen(!popoverOpen);
   };
+  const BoldTitle = styled.b`
+    font-size: 22px;
+  `;
 
   return (
     <div>
@@ -26,7 +30,7 @@ function ComplexPopover(props) {
           toggle={togglePopover}
         >
           <PopoverHeader>
-            <b>{props.movie.result.title}</b>
+            <BoldTitle>{props.movie.result.title}</BoldTitle>
           </PopoverHeader>
           <PopoverBody>
             <b>Release date:</b>
