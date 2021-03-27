@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Movie from "./Movie";
 function Movies(props) {
   return (
@@ -6,18 +6,21 @@ function Movies(props) {
       {props.loading && (
         <div className="text-center">
           <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
+            <span className="visually-hidden"></span>
           </div>
         </div>
       )}
       {!props.loading && (
         <div>
           <div className="row">
-            {props.results.results.map((item, index) => (
-              <div key={index} className="col-3">
-                <Movie result={item} />
-              </div>
-            ))}
+            {/* {props.results.results.map((item, index) => ( */}
+            {props.results.results
+              .filter((movie) => movie.vote_average > props.voteAverage)
+              .map((item, index) => (
+                <div key={index} className="col-3">
+                  <Movie result={item} />
+                </div>
+              ))}
           </div>
         </div>
       )}

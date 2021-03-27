@@ -4,12 +4,16 @@ import "bootstrap/dist/css/bootstrap.css";
 import Header from "./components/Header";
 import Movies from "./components/Movies";
 import axios from "axios";
+import StarRatingComponent from "react-star-rating-component";
+
 function App() {
   const [searchInput, setSearchInput] = useState("");
+  const [starRating, setStarRating] = useState(0);
   const [search, setSearch] = useState(false);
   const [defResults, setDefResults] = useState(null);
   const [searchResults, setSearchResults] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [voteAverage, setVoteAverage] = useState(0);
   const apiKey = "eeec2429b31a143e915ed959aad485f0";
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);
@@ -18,6 +22,17 @@ function App() {
     event.preventDefault();
     setSearch(true);
   };
+
+  const onStarClick = (nextValue, prevValue, name) => {
+    if (nextValue === prevValue) {
+      setStarRating(0);
+      setVoteAverage(0);
+      return;
+    }
+    setVoteAverage(nextValue * 2);
+    setStarRating(nextValue);
+  };
+
   useEffect(() => {
     const fetchMovies = () => {
       if (search) {
@@ -35,8 +50,8 @@ function App() {
         .get(url)
         .then(function (res) {
           console.log("se realizo fetch de busqueda");
-          console.log(res.data);
           //   setSearchResults(res.data);
+
           setSearchResults(res.data);
           setSearch(false);
           setLoading(false);
@@ -80,19 +95,35 @@ function App() {
               >
                 Search
               </button>
+              <h5>Movie's rating</h5>
+              <div style={{ fontSize: 26 }}>
+                <StarRatingComponent
+                  name="starRating"
+                  value={starRating}
+                  onStarClick={onStarClick}
+                />
+              </div>
             </form>
           </div>
         </div>
         {searchResults && (
           <div className="">
             <h3>Search results:</h3>
-            <Movies results={searchResults} loading={loading}></Movies>
+            <Movies
+              results={searchResults}
+              loading={loading}
+              voteAverage={voteAverage}
+            ></Movies>
           </div>
         )}
         {!searchResults && (
           <div className="">
             <h3>Top rated movies:</h3>
-            <Movies results={defResults} loading={loading}></Movies>
+            <Movies
+              results={defResults}
+              loading={loading}
+              voteAverage={voteAverage}
+            ></Movies>
           </div>
         )}
       </div>

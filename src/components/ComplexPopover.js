@@ -6,7 +6,6 @@ function ComplexPopover(props) {
   const togglePopover = () => {
     setPopoverOpen(!popoverOpen);
   };
-  console.log(props);
 
   return (
     <div>
