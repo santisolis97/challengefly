@@ -5,6 +5,7 @@ import styled from "styled-components";
 const Card = styled.div`
   margin-bottom: 20px;
   border: 2px solid #d8d8d8;
+  min-height: 550px;
 `;
 const Titled = styled.p`
   font-weight: bold;
@@ -18,7 +19,7 @@ function Movie(props) {
           src={
             props.result.poster_path !== null
               ? `https://www.themoviedb.org/t/p/w220_and_h330_face${props.result.poster_path}`
-              : "https://www.meme-arsenal.com/memes/73d32145bdc3c3defde8166c38bb50f3.jpg"
+              : "https://www.wildhareboca.com/wp-content/uploads/sites/310/2018/03/image-not-available.jpg"
           }
           className="card-img-top"
           alt="..."
