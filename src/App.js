@@ -82,7 +82,7 @@ function App() {
 
     fetchMovies();
     // fetchTopRatedMovies();
-  }, [search]);
+  }, [search, searchInput]);
   return (
     <div className="App">
       <Header />
