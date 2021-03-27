@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap";
 import styled from "styled-components";
-
+const BoldTitle = styled.b`
+  font-size: 22px;
+`;
 function ComplexPopover(props) {
   const [popoverOpen, setPopoverOpen] = useState(false);
   const togglePopover = () => {
     setPopoverOpen(!popoverOpen);
   };
-  const BoldTitle = styled.b`
-    font-size: 22px;
-  `;
 
   return (
     <div>

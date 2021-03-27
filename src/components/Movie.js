@@ -2,15 +2,17 @@ import React from "react";
 import ComplexPopover from "./ComplexPopover";
 import styled from "styled-components";
 
+const Card = styled.div`
+  margin-bottom: 20px;
+  border: 2px solid #d8d8d8;
+`;
+const Titled = styled.p`
+  font-weight: bold;
+  font-size: 18px;
+`;
 function Movie(props) {
-  const Card = styled.div`
-    margin-bottom: 20px;
-    border: 2px solid #d8d8d8;
-  `;
-  const Titled = styled.p`
-    font-weight: bold;
-    font-size: 18px;
-  `;
+  console.log(props.result);
+
   return (
     <div>
       <Card className="card">

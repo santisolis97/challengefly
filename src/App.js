@@ -7,6 +7,13 @@ import axios from "axios";
 import StarRatingComponent from "react-star-rating-component";
 import styled from "styled-components";
 
+const StarRating = styled.div`
+  font-size: 26px;
+`;
+const FilterLabel = styled.div`
+  padding-top: 5px;
+  font-size: 20px;
+`;
 function App() {
   const [searchInput, setSearchInput] = useState("");
   const [starRating, setStarRating] = useState(0);
@@ -16,16 +23,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [voteAverage, setVoteAverage] = useState(0);
   const apiKey = "eeec2429b31a143e915ed959aad485f0";
-  const Container = styled.div`
-    padding-top: 20px;
-  `;
-  const StarRating = styled.div`
-    font-size: 26px;
-  `;
-  const FilterLabel = styled.div`
-    padding-top: 5px;
-    font-size: 20px;
-  `;
+
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);
   };
@@ -40,7 +38,7 @@ function App() {
       setVoteAverage(0);
       return;
     }
-    setVoteAverage(nextValue * 2);
+    setVoteAverage((nextValue - 1) * 2);
     setStarRating(nextValue);
   };
 
