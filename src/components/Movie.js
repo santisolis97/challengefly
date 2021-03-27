@@ -5,17 +5,27 @@ import styled from "styled-components";
 const Card = styled.div`
   margin-bottom: 20px;
   border: 2px solid #d8d8d8;
-  min-height: 550px;
+  min-height: 550px !important;
+  border-radius: 25px;
+`;
+const CardBody = styled.div`
+  padding-bottom: 0px;
+  max-height: 120px;
 `;
 const Titled = styled.p`
+  min-height: 55px;
   font-weight: bold;
   font-size: 18px;
+`;
+const Img = styled.img`
+  border-top-left-radius: 23px;
+  border-top-right-radius: 23px;
 `;
 function Movie(props) {
   return (
     <div>
       <Card className="card">
-        <img
+        <Img
           src={
             props.result.poster_path !== null
               ? `https://www.themoviedb.org/t/p/w220_and_h330_face${props.result.poster_path}`
@@ -24,10 +34,10 @@ function Movie(props) {
           className="card-img-top"
           alt="..."
         />
-        <div className="card-body">
+        <CardBody className="card-body">
           <Titled className="card-text">{props.result.title}</Titled>
-          <ComplexPopover movie={props}></ComplexPopover>
-        </div>
+        </CardBody>
+        <ComplexPopover movie={props}></ComplexPopover>
       </Card>
     </div>
   );
