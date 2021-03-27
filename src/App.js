@@ -4,7 +4,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import Header from "./components/Header";
 import Movies from "./components/Movies";
 import axios from "axios";
-
 function App() {
   const [searchInput, setSearchInput] = useState("");
   const [search, setSearch] = useState(false);

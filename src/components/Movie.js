@@ -1,5 +1,5 @@
 import React from "react";
-
+import ComplexPopover from "./ComplexPopover";
 function Movie(props) {
   return (
     <div>
@@ -15,6 +15,7 @@ function Movie(props) {
         />
         <div className="card-body">
           <p className="card-text">{props.result.title}</p>
+          <ComplexPopover movie={props}></ComplexPopover>
         </div>
       </div>
     </div>
