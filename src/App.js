@@ -58,9 +58,6 @@ function App() {
       axios
         .get(url)
         .then(function (res) {
-          console.log("se realizo fetch de busqueda");
-          //   setSearchResults(res.data);
-
           setSearchResults(res.data);
           setSearch(false);
           setLoading(false);
@@ -72,16 +69,13 @@ function App() {
     const fetchTopRatedMovies = () => {
       const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_video=false&page=1`;
       axios.get(url).then((res) => {
-        // setTopRatedMovies(res.data);
         setDefResults(res.data);
 
-        console.log("Se realizo fetch completo");
         setLoading(false);
       });
     };
 
     fetchMovies();
-    // fetchTopRatedMovies();
   }, [search, searchInput]);
   return (
     <div className="App">
