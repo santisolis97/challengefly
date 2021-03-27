@@ -13,42 +13,16 @@ function Movies(props) {
       {!props.loading && (
         <div>
           <div className="row">
-            {/* {props.results.results.map((item, index) => ( */}
             {props.results.results
               .filter((movie) => movie.vote_average > props.voteAverage)
               .map((item, index) => (
-                <div key={index} className="col-3">
+                <div key={index} className="col-12 col-md-6 col-lg-4 col-xl-3">
                   <Movie result={item} />
                 </div>
               ))}
           </div>
         </div>
       )}
-
-      {/* {searchResults.length > 0 && !loading && (
-        <div>
-          <h3>Top rated movies:</h3>
-          <div className="row">
-            {searchResults.map((item, index) => (
-              <div key={index} className="col-3">
-                {item.title}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-      {!loading && (
-        <div>
-          <h3>Top rated movies:</h3>
-          <div className="row">
-            {topRatedMovies.results.map((item, index) => (
-              <div key={index} className="col-3">
-                <Movie result={item} />
-              </div>
-            ))}
-          </div>
-        </div>
-      )} */}
     </div>
   );
 }

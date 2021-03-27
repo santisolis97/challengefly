@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Movies from "./components/Movies";
 import axios from "axios";
 import StarRatingComponent from "react-star-rating-component";
+import styled from "styled-components";
 
 function App() {
   const [searchInput, setSearchInput] = useState("");
@@ -15,6 +16,16 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [voteAverage, setVoteAverage] = useState(0);
   const apiKey = "eeec2429b31a143e915ed959aad485f0";
+  const Container = styled.div`
+    padding-top: 20px;
+  `;
+  const StarRating = styled.div`
+    font-size: 26px;
+  `;
+  const FilterLabel = styled.div`
+    padding-top: 5px;
+    font-size: 20px;
+  `;
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);
   };
@@ -81,30 +92,37 @@ function App() {
         <div className="Form">
           <div className="d-flex justify-content-center ">
             <form className="form-inline" onSubmit={handleSearch}>
-              <input
-                className="form-control mr-sm-2"
-                type="search"
-                value={searchInput}
-                onChange={handleSearchInputChange}
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button
-                className="btn btn-outline-success my-2 my-sm-0"
-                type="submit"
-              >
-                Search
-              </button>
-              <h5>Movie's rating</h5>
-              <div style={{ fontSize: 26 }}>
-                <StarRatingComponent
-                  name="starRating"
-                  value={starRating}
-                  onStarClick={onStarClick}
-                />
+              <div className="row">
+                <div className="col-12">
+                  <input
+                    className="form-control mr-sm-2"
+                    type="search"
+                    value={searchInput}
+                    onChange={handleSearchInputChange}
+                    placeholder="Search movies"
+                    aria-label="Search"
+                  />
+                  <button
+                    className="btn btn-outline-success my-2 my-sm-0"
+                    type="submit"
+                  >
+                    Search
+                  </button>
+                </div>
               </div>
             </form>
           </div>
+        </div>
+
+        <div className="filter">
+          <FilterLabel>Filter movies by rating</FilterLabel>
+          <StarRating>
+            <StarRatingComponent
+              name="starRating"
+              value={starRating}
+              onStarClick={onStarClick}
+            />
+          </StarRating>
         </div>
         {searchResults && (
           <div className="">

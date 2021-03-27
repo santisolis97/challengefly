@@ -9,7 +9,12 @@ function ComplexPopover(props) {
 
   return (
     <div>
-      <Button id={"Popover-" + props.movie.result.id} type="button">
+      <Button
+        outline
+        color="info"
+        id={"Popover-" + props.movie.result.id}
+        type="button"
+      >
         See more info.
       </Button>
 

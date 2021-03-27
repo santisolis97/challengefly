@@ -1,9 +1,14 @@
 import React from "react";
 import ComplexPopover from "./ComplexPopover";
+import styled from "styled-components";
+
 function Movie(props) {
+  const Card = styled.div`
+    margin-bottom: 20px;
+  `;
   return (
     <div>
-      <div className="card" styles="width: 18rem;">
+      <Card className="card">
         <img
           src={
             props.result.poster_path !== null
@@ -17,7 +22,7 @@ function Movie(props) {
           <p className="card-text">{props.result.title}</p>
           <ComplexPopover movie={props}></ComplexPopover>
         </div>
-      </div>
+      </Card>
     </div>
   );
 }

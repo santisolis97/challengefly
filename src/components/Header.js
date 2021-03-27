@@ -1,14 +1,24 @@
 import React from "react";
+import styled from "styled-components";
 
 function Header() {
+  const Anchor = styled.a`
+    font-size: 20px;
+  `;
+  const Nav = styled.nav`
+    background-color: #d8d8d8;
+  `;
+  const Container = styled.div`
+    margin-bottom: 15px;
+  `;
   return (
-    <div>
-      <nav className="navbar navbar-light bg-light">
-        <a href="/" className="navbar-brand">
+    <Container>
+      <Nav className="navbar navbar-light ">
+        <Anchor href="/" className="navbar-brand">
           Movie Theater
-        </a>
-      </nav>
-    </div>
+        </Anchor>
+      </Nav>
+    </Container>
   );
 }
 
