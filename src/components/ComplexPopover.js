@@ -14,11 +14,11 @@ function ComplexPopover(props) {
     <div>
       <Button
         outline
-        color="info"
+        color={popoverOpen ? "danger" : "info"}
         id={"Popover-" + props.movie.result.id}
         type="button"
       >
-        See more info.
+        {popoverOpen ? "Close" : "See more info"}
       </Button>
 
       <div>
