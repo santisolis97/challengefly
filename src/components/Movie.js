@@ -11,8 +11,6 @@ const Titled = styled.p`
   font-size: 18px;
 `;
 function Movie(props) {
-  console.log(props.result);
-
   return (
     <div>
       <Card className="card">
