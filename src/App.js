@@ -36,7 +36,6 @@ function App(props) {
   };
 
   useEffect(() => {
-    console.log(props);
     const fetchMovies = () => {
       if (props.search) {
         fetchSearch();

@@ -10,7 +10,7 @@ const initialState = {
   search: false,
 };
 function reducer(state = initialState, action) {
-  console.log("reducer", state, action);
+  // console.log("reducer", state, action);
 
   switch (action.type) {
     case "UPDATESEARCHINPUT":
