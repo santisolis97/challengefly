@@ -3,9 +3,12 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import Header from "./components/Header";
 import Movies from "./components/Movies";
+import Form from "./components/Form";
 import axios from "axios";
 import StarRatingComponent from "react-star-rating-component";
 import styled from "styled-components";
+import { connect } from "react-redux";
+import { toggleSearch, updateSearchInput } from "./actions";
 
 const StarRating = styled.div`
   font-size: 26px;
@@ -14,23 +17,13 @@ const FilterLabel = styled.div`
   padding-top: 5px;
   font-size: 20px;
 `;
-function App() {
-  const [searchInput, setSearchInput] = useState("");
+function App(props) {
   const [starRating, setStarRating] = useState(0);
-  const [search, setSearch] = useState(false);
   const [defResults, setDefResults] = useState(null);
   const [searchResults, setSearchResults] = useState(null);
   const [loading, setLoading] = useState(true);
   const [voteAverage, setVoteAverage] = useState(0);
   const apiKey = "eeec2429b31a143e915ed959aad485f0";
-
-  const handleSearchInputChange = (event) => {
-    setSearchInput(event.target.value);
-  };
-  const handleSearch = (event) => {
-    event.preventDefault();
-    setSearch(true);
-  };
 
   const onStarClick = (nextValue, prevValue, name) => {
     if (nextValue === prevValue) {
@@ -43,23 +36,26 @@ function App() {
   };
 
   useEffect(() => {
+    console.log(props);
     const fetchMovies = () => {
-      if (search) {
+      if (props.search) {
         fetchSearch();
       } else {
         fetchTopRatedMovies();
       }
     };
+
     const fetchSearch = () => {
       const url =
-        searchInput === ""
+        props.searchInput === ""
           ? `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_video=false&page=1`
-          : `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${searchInput}&page=1&include_adult=false`;
+          : `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${props.searchInput}&page=1&include_adult=false`;
       axios
         .get(url)
         .then(function (res) {
           setSearchResults(res.data);
-          setSearch(false);
+          props.toggleSearch();
+
           setLoading(false);
         })
         .catch(function (error) {
@@ -76,36 +72,12 @@ function App() {
     };
 
     fetchMovies();
-  }, [search, searchInput]);
+  }, [props.search, props.searchInput]);
   return (
     <div className="App">
       <Header />
       <div className="container">
-        <div className="Form">
-          <div className="d-flex justify-content-center ">
-            <form className="form-inline" onSubmit={handleSearch}>
-              <div className="row">
-                <div className="col-12">
-                  <input
-                    className="form-control mr-sm-2"
-                    type="search"
-                    value={searchInput}
-                    onChange={handleSearchInputChange}
-                    placeholder="Search movies"
-                    aria-label="Search"
-                  />
-                  <button
-                    className="btn btn-outline-success my-2 my-sm-0"
-                    type="submit"
-                  >
-                    Search
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-
+        <Form />
         <div className="filter">
           <FilterLabel>Filter movies by rating</FilterLabel>
           <StarRating>
@@ -140,5 +112,14 @@ function App() {
     </div>
   );
 }
-
-export default App;
+function mapStateToProps(state) {
+  return {
+    searchInput: state.searchInput,
+    search: state.search,
+  };
+}
+const mapDispatchToProps = {
+  updateSearchInput,
+  toggleSearch,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(App);

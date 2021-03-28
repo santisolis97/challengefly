@@ -3,10 +3,37 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+const initialState = {
+  searchInput: "",
+  search: false,
+};
+function reducer(state = initialState, action) {
+  console.log("reducer", state, action);
+
+  switch (action.type) {
+    case "UPDATESEARCHINPUT":
+      return {
+        searchInput: action.payload,
+        search: state.search,
+      };
+    case "TOGGLESEARCH":
+      return {
+        searchInput: state.searchInput,
+        search: !state.search,
+      };
+    default:
+      return state;
+  }
+}
+const store = createStore(reducer);
 
 ReactDOM.render(
   <React.Fragment>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.Fragment>,
   document.getElementById("root")
 );
