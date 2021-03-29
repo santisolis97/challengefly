@@ -18,8 +18,8 @@ const Img = styled.img`
 	border-top-left-radius: 23px;
 	border-top-right-radius: 23px;
 `
+// This compononent wraps movie cards
 function Movie(props) {
-	// console.log(props.result.vote_average);
 	return (
 		<div>
 			<Card className="card">

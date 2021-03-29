@@ -1,11 +1,11 @@
-# Searching Pokemons
+# Searching TMDb
 
 ## About this project
 
 React project that allows the user to search for movies found in the [TMDb API](https://www.themoviedb.org/documentation/api/)
 
-If you want to see the result, you can go to: https://nicmalegre.github.io/api-pokemon/
-Also is avaliable on: https://react-api-poke.herokuapp.com/
+If you want to see the result, you can go to: https://santisolis97.github.io/challengefly/
+
 
 **Technologies and libraries:**
 

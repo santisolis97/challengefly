@@ -10,6 +10,7 @@ const Nav = styled.nav`
 const Container = styled.div`
 	margin-bottom: 15px;
 `
+// this is the Header component.
 function Header() {
 	return (
 		<Container>

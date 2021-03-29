@@ -4,9 +4,12 @@ import styled from 'styled-components'
 const BoldTitle = styled.b`
 	font-size: 22px;
 `
+
+//This component is the popover that opens when you click "See more info" button located in each movie card
 function ComplexPopover(props) {
 	const [popoverOpen, setPopoverOpen] = useState(false)
 	const togglePopover = () => {
+		// this functions toggles the popover from open to close and vice versa
 		setPopoverOpen(!popoverOpen)
 	}
 
