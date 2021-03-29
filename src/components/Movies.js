@@ -1,6 +1,7 @@
 import React from "react";
 import Movie from "./Movie";
 function Movies(props) {
+  // console.log("Entre: " + (props.voteAverage - 2) + " y: " + props.voteAverage);
   return (
     <div>
       {props.loading && (
@@ -14,7 +15,12 @@ function Movies(props) {
         <div>
           <div className="row">
             {props.results.results
-              .filter((movie) => movie.vote_average > props.voteAverage)
+              .filter(
+                (movie) =>
+                  (movie.vote_average <= props.voteAverage &&
+                    movie.vote_average > props.voteAverage - 2) ||
+                  props.voteAverage === 0
+              )
               .map((item, index) => (
                 <div key={index} className="col-12 col-md-6 col-lg-4 col-xl-3">
                   <Movie result={item} />

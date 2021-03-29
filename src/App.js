@@ -9,7 +9,7 @@ import StarRatingComponent from "react-star-rating-component";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { toggleSearch, updateSearchInput } from "./actions";
-
+const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 const StarRating = styled.div`
   font-size: 26px;
 `;
@@ -23,7 +23,6 @@ function App(props) {
   const [searchResults, setSearchResults] = useState(null);
   const [loading, setLoading] = useState(true);
   const [voteAverage, setVoteAverage] = useState(0);
-  const apiKey = "eeec2429b31a143e915ed959aad485f0";
 
   const onStarClick = (nextValue, prevValue, name) => {
     if (nextValue === prevValue) {
@@ -31,7 +30,7 @@ function App(props) {
       setVoteAverage(0);
       return;
     }
-    setVoteAverage((nextValue - 1) * 2);
+    setVoteAverage(nextValue * 2);
     setStarRating(nextValue);
   };
 
@@ -47,8 +46,8 @@ function App(props) {
     const fetchSearch = () => {
       const url =
         props.searchInput === ""
-          ? `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_video=false&page=1`
-          : `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${props.searchInput}&page=1&include_adult=false`;
+          ? `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_video=false&page=1`
+          : `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${props.searchInput}&page=1&include_adult=false`;
       axios
         .get(url)
         .then(function (res) {
@@ -62,7 +61,7 @@ function App(props) {
         });
     };
     const fetchTopRatedMovies = () => {
-      const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_video=false&page=1`;
+      const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_video=false&page=1`;
       axios.get(url).then((res) => {
         setDefResults(res.data);
 

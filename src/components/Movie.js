@@ -19,6 +19,7 @@ const Img = styled.img`
   border-top-right-radius: 23px;
 `;
 function Movie(props) {
+  // console.log(props.result.vote_average);
   return (
     <div>
       <Card className="card">
