@@ -2,9 +2,6 @@
 	"name": "challengefly",
 	"version": "0.1.0",
 	"private": true,
-	"engines": {
-		"node": "14.16.0"
-	},
 	"dependencies": {
 		"@popperjs/core": "^2.9.1",
 		"@testing-library/jest-dom": "^5.11.4",
@@ -34,8 +31,10 @@
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
-		"eject": "react-scripts eject"
-		
+		"eject": "react-scripts eject",
+		"lint": "eslint  --fix src/**/*.js",
+		"format": "prettier src/**/*.js --write. --config ./.prettierrc",
+		"prettier": "prettier --write ./src"
 	},
 	"eslintConfig": {
 		"extends": "react-app",
