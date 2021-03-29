@@ -7,7 +7,7 @@ import Form from './components/Form'
 import axios from 'axios'
 import StarRatingComponent from 'react-star-rating-component'
 import styled from 'styled-components'
-import { toggleSearch, updateSearchInput } from './actions'
+import { toggleSearch } from './actions'
 import { useSelector, useDispatch } from 'react-redux'
 
 const API_KEY = process.env.REACT_APP_TMDB_API_KEY
@@ -74,7 +74,7 @@ function App(props) {
 		}
 
 		fetchMovies()
-	}, [search, searchInput])
+	}, [search, searchInput, dispatch])
 	return (
 		<div className="App">
 			<Header />

@@ -2,6 +2,7 @@ import React from 'react'
 import Movie from './Movie'
 function Movies(props) {
 	// console.log("Entre: " + (props.voteAverage - 2) + " y: " + props.voteAverage);
+	console.log(props)
 	return (
 		<div>
 			{props.loading && (
