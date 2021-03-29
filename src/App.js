@@ -7,7 +7,7 @@ import Form from './components/Form.jsx'
 import axios from 'axios'
 import StarRatingComponent from 'react-star-rating-component'
 import styled from 'styled-components'
-import { toggleSearch } from './actions'
+import { toggleSearch } from './actions.js'
 import { useSelector, useDispatch } from 'react-redux'
 // this requires the hidden API KEY
 
