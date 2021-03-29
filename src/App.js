@@ -7,8 +7,9 @@ import Form from './components/Form'
 import axios from 'axios'
 import StarRatingComponent from 'react-star-rating-component'
 import styled from 'styled-components'
-import { connect } from 'react-redux'
 import { toggleSearch, updateSearchInput } from './actions'
+import { useSelector, useDispatch } from 'react-redux'
+
 const API_KEY = process.env.REACT_APP_TMDB_API_KEY
 const StarRating = styled.div`
 	font-size: 26px;
@@ -23,6 +24,9 @@ function App(props) {
 	const [searchResults, setSearchResults] = useState(null)
 	const [loading, setLoading] = useState(true)
 	const [voteAverage, setVoteAverage] = useState(0)
+	const searchInput = useSelector((state) => state.searchInput)
+	const search = useSelector((state) => state.search)
+	const dispatch = useDispatch()
 
 	const onStarClick = (nextValue, prevValue, name) => {
 		if (nextValue === prevValue) {
@@ -36,7 +40,7 @@ function App(props) {
 
 	useEffect(() => {
 		const fetchMovies = () => {
-			if (props.search) {
+			if (search) {
 				fetchSearch()
 			} else {
 				fetchTopRatedMovies()
@@ -45,14 +49,14 @@ function App(props) {
 
 		const fetchSearch = () => {
 			const url =
-				props.searchInput === ''
+				searchInput === ''
 					? `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_video=false&page=1`
-					: `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${props.searchInput}&page=1&include_adult=false`
+					: `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${searchInput}&page=1&include_adult=false`
 			axios
 				.get(url)
 				.then(function (res) {
 					setSearchResults(res.data)
-					props.toggleSearch()
+					dispatch(toggleSearch())
 
 					setLoading(false)
 				})
@@ -70,7 +74,7 @@ function App(props) {
 		}
 
 		fetchMovies()
-	}, [props.search, props.searchInput])
+	}, [search, searchInput])
 	return (
 		<div className="App">
 			<Header />
@@ -98,14 +102,5 @@ function App(props) {
 		</div>
 	)
 }
-function mapStateToProps(state) {
-	return {
-		searchInput: state.searchInput,
-		search: state.search,
-	}
-}
-const mapDispatchToProps = {
-	updateSearchInput,
-	toggleSearch,
-}
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+
+export default App

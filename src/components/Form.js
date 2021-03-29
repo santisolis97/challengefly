@@ -1,14 +1,16 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { updateSearchInput, toggleSearch } from '../actions.js'
-function Form(props) {
+function Form() {
+	const searchInput = useSelector((state) => state.searchInput)
+	const dispatch = useDispatch()
 	const handleSearchInputChange = (event) => {
-		props.updateSearchInput(event.target.value)
+		dispatch(updateSearchInput(event.target.value))
 	}
 
 	const handleSearch = (event) => {
 		event.preventDefault()
-		props.toggleSearch()
+		dispatch(toggleSearch())
 	}
 	return (
 		<div>
@@ -20,7 +22,7 @@ function Form(props) {
 								<input
 									className="form-control mr-sm-2"
 									type="search"
-									defaultValue={props.searchInput}
+									defaultValue={searchInput}
 									onChange={handleSearchInputChange}
 									placeholder="Search movies"
 									aria-label="Search"
@@ -36,15 +38,15 @@ function Form(props) {
 		</div>
 	)
 }
-const mapDispatchToProps = {
-	updateSearchInput,
-	toggleSearch,
-}
-function mapStateToProps(state) {
-	return {
-		searchInput: state.searchInput,
-		search: state.search,
-	}
-}
+// const mapDispatchToProps = {
+// 	updateSearchInput,
+// 	toggleSearch,
+// }
+// function mapStateToProps(state) {
+// 	return {
+// 		searchInput: state.searchInput,
+// 		search: state.search,
+// 	}
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form)
+export default Form
