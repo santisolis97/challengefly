@@ -1,36 +1,75 @@
-# Movie Theater(FlyDevs Challenge)
-##### This is a simple app where you can find the "Top Rated" moives according to "TMDb". Besides you can search for a specific movie using the search bar and also filter this movies by rating clicking the stars.
+# Searching Pokemons
 
-## How set up the project locally?
+## About this project
 
-##### In the project directory you need to run:
-### `npm install`
-to install the dependecies.
+React project that allows the user to search for movies found in the [TMDb API](https://www.themoviedb.org/documentation/api/)
 
-###### After that:
-### `npm run start`
-to start the development server.
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+If you want to see the result, you can go to: https://nicmalegre.github.io/api-pokemon/
+Also is avaliable on: https://react-api-poke.herokuapp.com/
+
+**Technologies and libraries:**
+
+- React
+- Axios
+- Redux
+- Bootstrap
+- Styled-components
+- Popper 
+- React-star-rating-component
+
+## File structure
+
+The project is strcutured  https://es.reactjs.org/docs/faq-structure.html#grouping-by-file-type called “grouping by file type" where the idea is to group similar files. For example:
 
 
-
-------
-## Build
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- assets
+- components
 
 
 
+## What commands did I run to create this project?
+
+If you want to start this project from scratch, first, make sure you have installed npm and then you need to know the following commands:
+
+- npx create react-app .
+- npm install
+- npm install reactstrap
+- npm install react-redux
+- npm install styled-components
+- npm install axios
+- npm install @popperjs/core
+
+## How to run the project locally?
+
+1. Make sure you have npm installed
+
+- For more information go to: https://docs.npmjs.com/cli/v6/commands/npm-install
+
+2. Clone the repository
+   > git clone https://github.com/santisolis97/challengefly.git
+3. Go to the project
+   > cd challengefly
+4. Install dependencies:
+   > npm install
+5. Now run the app:
+   > npm run start
+6. By default the server will run in the port localhost:3000
 
 
+## How to create a build locally?
 
+1. Make sure you have npm installed
+
+- For more information go to: https://docs.npmjs.com/cli/v6/commands/npm-install
+
+2. Clone the repository
+   > git clone https://github.com/santisolis97/challengefly.git
+3. Go to the project
+   > cd challengefly
+4. Install all:
+   > npm install
+5. Run the following command for create the build:
+   > npm run build
+
+## Enjoy it! 🖥
 
