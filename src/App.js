@@ -79,12 +79,10 @@ const App = () => {
 				.then(function (res) {
 					if (searchInput !== '') {
 						setSearchResults(res.data) // here it saves the response into the state
-						console.log(res.data)
 					} else {
 						//in case the searchInput is empty it shows the top rated movies again
 						setDefResults(res.data)
 						setSearchResults(null)
-						console.log(res.data)
 					}
 					dispatch(toggleSearch()) // here it toggles the search boolean
 
@@ -100,7 +98,6 @@ const App = () => {
 			const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_video=false&page=${page}`
 			axios.get(url).then((res) => {
 				setDefResults(res.data) // here it saves the api response into the state
-				console.log(res.data)
 
 				setLoading(false)
 			})
