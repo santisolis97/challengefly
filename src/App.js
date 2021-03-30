@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import Header from '../src/components/Header.jsx'
 import Movies from './components/Movies.jsx'
 import Form from './components/Form.jsx'
+import Pag from './components/Pag.jsx'
 import axios from 'axios'
 import StarRatingComponent from 'react-star-rating-component'
 import styled from 'styled-components'
@@ -112,41 +113,24 @@ const App = () => {
 			<Header />
 			<div className="container">
 				<Form />
-				<div className="filter">
-					<FilterLabel>Filter movies by rating</FilterLabel>
-					<StarRating>
-						<StarRatingComponent name="starRating" value={starRating} onStarClick={onStarClick} />
-					</StarRating>
-				</div>
+
+				<FilterLabel>Filter movies by rating</FilterLabel>
+				<StarRating>
+					<StarRatingComponent name="starRating" value={starRating} onStarClick={onStarClick} />
+				</StarRating>
 				{searchResults && ( // If we have a search result it shows it. Otherwise it shows the top rated movies
-					<div className="">
+					<div>
 						<h3>Search results:</h3>
 						<Movies results={searchResults} loading={loading} voteAverage={voteAverage}></Movies>
 					</div>
 				)}
 				{!searchResults && (
-					<div className="">
+					<div>
 						<h3>Top rated movies:</h3>
 						<Movies results={defResults} loading={loading} voteAverage={voteAverage}></Movies>
 					</div>
 				)}
-				<nav aria-label="Page navigation example">
-					<ul className="pagination justify-content-center">
-						<li className="page-item">
-							<button className="page-link" onClick={() => handlePag('prev')}>
-								Prev
-							</button>
-						</li>
-						<li className="page-item disabled">
-							<button className="page-link">{page}</button>
-						</li>
-						<li className="page-item">
-							<button className="page-link" onClick={() => handlePag('next')}>
-								Next
-							</button>
-						</li>
-					</ul>
-				</nav>
+				<Pag handlePag={handlePag}></Pag>
 			</div>
 		</div>
 	)
