@@ -8,3 +8,9 @@ export const toggleSearch = () => ({
 	//here it toggles the search boolean from on to of or viceversa
 	type: 'TOGGLESEARCH',
 })
+export const nextPage = () => ({
+	type: 'NEXTPAGE',
+})
+export const prevPage = () => ({
+	type: 'PREVPAGE',
+})

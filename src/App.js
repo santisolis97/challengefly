@@ -7,7 +7,7 @@ import Form from './components/Form.jsx'
 import axios from 'axios'
 import StarRatingComponent from 'react-star-rating-component'
 import styled from 'styled-components'
-import { toggleSearch } from './actions.js'
+import { toggleSearch, nextPage, prevPage } from './actions.js'
 import { useSelector, useDispatch } from 'react-redux'
 // this requires the hidden API KEY
 
@@ -20,7 +20,7 @@ const FilterLabel = styled.div`
 	font-size: 20px;
 `
 
-function App() {
+const App = () => {
 	const [starRating, setStarRating] = useState(0)
 	const [defResults, setDefResults] = useState(null)
 	const [searchResults, setSearchResults] = useState(null)
@@ -28,6 +28,7 @@ function App() {
 	const [voteAverage, setVoteAverage] = useState(0)
 	const searchInput = useSelector((state) => state.searchInput)
 	const search = useSelector((state) => state.search)
+	const page = useSelector((state) => state.page)
 	const dispatch = useDispatch()
 
 	// this function handles the star rating component
@@ -42,8 +43,19 @@ function App() {
 		setVoteAverage(nextValue * 2)
 		setStarRating(nextValue)
 	}
+	const handlePag = (type) => {
+		if (type === 'prev' && page > 1) {
+			dispatch(prevPage())
+		} else if (
+			(type === 'next' && searchResults === null && page < defResults.total_pages) ||
+			(type === 'next' && searchResults !== null && page < searchResults.total_pages)
+		) {
+			dispatch(nextPage())
+		}
+	}
 
 	useEffect(() => {
+		window.scrollTo({ top: 0, behavior: 'smooth' })
 		const fetchMovies = () => {
 			// This function fetches the movies from TMDb API.
 			if (search) {
@@ -59,17 +71,19 @@ function App() {
 			// This is the search fetching function
 			const url =
 				searchInput === ''
-					? `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_video=false&page=1`
-					: `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${searchInput}&page=1&include_adult=false`
+					? `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_video=false&page=${page}`
+					: `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${searchInput}&page=${page}&include_adult=false`
 			axios
 				.get(url)
 				.then(function (res) {
 					if (searchInput !== '') {
 						setSearchResults(res.data) // here it saves the response into the state
+						console.log(res.data)
 					} else {
 						//in case the searchInput is empty it shows the top rated movies again
 						setDefResults(res.data)
 						setSearchResults(null)
+						console.log(res.data)
 					}
 					dispatch(toggleSearch()) // here it toggles the search boolean
 
@@ -82,9 +96,10 @@ function App() {
 		}
 		const fetchTopRatedMovies = () => {
 			//This function fetches the top rated movies.
-			const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_video=false&page=1`
+			const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_video=false&page=${page}`
 			axios.get(url).then((res) => {
 				setDefResults(res.data) // here it saves the api response into the state
+				console.log(res.data)
 
 				setLoading(false)
 			})
@@ -115,6 +130,23 @@ function App() {
 						<Movies results={defResults} loading={loading} voteAverage={voteAverage}></Movies>
 					</div>
 				)}
+				<nav aria-label="Page navigation example">
+					<ul className="pagination justify-content-center">
+						<li className="page-item">
+							<button className="page-link" onClick={() => handlePag('prev')}>
+								Prev
+							</button>
+						</li>
+						<li className="page-item disabled">
+							<button className="page-link">{page}</button>
+						</li>
+						<li className="page-item">
+							<button className="page-link" onClick={() => handlePag('next')}>
+								Next
+							</button>
+						</li>
+					</ul>
+				</nav>
 			</div>
 		</div>
 	)
