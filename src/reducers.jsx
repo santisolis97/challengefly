@@ -7,44 +7,32 @@ export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case 'UPDATESEARCHINPUT':
 			return {
+				...state,
 				searchInput: action.payload,
-				search: state.search,
-				page: state.page,
-				maxPage: state.maxPage,
 			}
 		case 'TOGGLESEARCH':
 			return {
-				searchInput: state.searchInput,
+				...state,
 				search: !state.search,
-				page: state.page,
-				maxPage: state.maxPage,
 			}
 		case 'NEXTPAGE':
 			return {
-				searchInput: state.searchInput,
-				search: !state.search,
+				...state,
 				page: state.page + 1,
-				maxPage: state.maxPage,
 			}
 		case 'PREVPAGE':
 			return {
-				searchInput: state.searchInput,
-				search: !state.search,
+				...state,
 				page: state.page - 1,
-				maxPage: state.maxPage,
 			}
 		case 'RESETPAGE':
 			return {
-				searchInput: state.searchInput,
-				search: state.search,
+				...state,
 				page: 1,
-				maxPage: state.maxPage,
 			}
 		case 'SETMAXPAGE':
 			return {
-				searchInput: state.searchInput,
-				search: state.search,
-				page: state.page,
+				...state,
 				maxPage: action.payload,
 			}
 		default:

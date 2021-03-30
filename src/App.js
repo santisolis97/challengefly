@@ -8,7 +8,7 @@ import Pag from './components/Pag.jsx'
 import axios from 'axios'
 import StarRatingComponent from 'react-star-rating-component'
 import styled from 'styled-components'
-import { toggleSearch, nextPage, prevPage, setMaxPage } from './actions.js'
+import { nextPage, prevPage, setMaxPage } from './actions.js'
 import { useSelector, useDispatch } from 'react-redux'
 // this requires the hidden API KEY
 const API_KEY = process.env.REACT_APP_TMDB_API_KEY
@@ -22,8 +22,7 @@ const FilterLabel = styled.div`
 
 const App = () => {
 	const [starRating, setStarRating] = useState(0)
-	const [defResults, setDefResults] = useState(null)
-	const [searchResults, setSearchResults] = useState(null)
+	const [results, setResults] = useState(null)
 	const [loading, setLoading] = useState(true)
 	const [voteAverage, setVoteAverage] = useState(0)
 	const searchInput = useSelector((state) => state.searchInput)
@@ -46,43 +45,25 @@ const App = () => {
 	const handlePag = (type) => {
 		if (type === 'prev' && page > 1) {
 			dispatch(prevPage())
-		} else if (
-			(type === 'next' && searchResults === null && page < defResults.total_pages) ||
-			(type === 'next' && searchResults !== null && page < searchResults.total_pages)
-		) {
+		} else if (type === 'next' && page < results.total_pages) {
 			dispatch(nextPage())
 		}
 	}
 	const fetchMovies = () => {
-		switch (search) {
-			case true:
-				return fetchSearch()
-
-			case false:
-				return fetchTopRatedMovies()
-		}
-		dispatch(toggleSearch())
-	}
-
-	const fetchSearch = () => {
 		const url =
-			searchInput === ''
+			searchInput === '' || searchInput === null
 				? `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_video=false&page=${page}`
 				: `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${searchInput}&page=${page}&include_adult=false`
 		axios
 			.get(url)
 			.then(function (res) {
 				if (searchInput !== '') {
-					setSearchResults(res.data) // here it saves the response into the state
-					dispatch(setMaxPage(res.data.total_pages))
+					setResults(res.data) // here it saves the response into the state
 				} else {
 					//in case the searchInput is empty it shows the top rated movies again
-					setDefResults(res.data)
-					setSearchResults(null)
+					setResults(res.data)
 				}
-
-				// dispatch(toggleSearch()) // here it toggles the search boolean
-
+				dispatch(setMaxPage(res.data.total_pages))
 				setLoading(false) // here it toggles the loading boolean
 				window.scrollTo({ top: 0, behavior: 'smooth' })
 			})
@@ -91,19 +72,9 @@ const App = () => {
 				console.log(error)
 			})
 	}
-	const fetchTopRatedMovies = () => {
-		//This function fetches the top rated movies.
-		const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_video=false&page=${page}`
-		axios.get(url).then((res) => {
-			setDefResults(res.data) // here it saves the api response into the state
-			dispatch(setMaxPage(res.data.total_pages))
-			setLoading(false)
-			window.scrollTo({ top: 0, behavior: 'smooth' })
-		})
-	}
 	useEffect(() => {
 		fetchMovies()
-	}, [search, searchInput, dispatch])
+	}, [search, searchInput, dispatch, page])
 	return (
 		<div className="App">
 			<Header />
@@ -114,18 +85,10 @@ const App = () => {
 				<StarRating>
 					<StarRatingComponent name="starRating" value={starRating} onStarClick={onStarClick} />
 				</StarRating>
-				{searchResults && ( // If we have a search result it shows it. Otherwise it shows the top rated movies
-					<div>
-						<h3>Search results:</h3>
-						<Movies results={searchResults} loading={loading} voteAverage={voteAverage}></Movies>
-					</div>
-				)}
-				{!searchResults && (
-					<div>
-						<h3>Top rated movies:</h3>
-						<Movies results={defResults} loading={loading} voteAverage={voteAverage}></Movies>
-					</div>
-				)}
+				<div>
+					<h3>Top rated movies:</h3>
+					<Movies results={results} loading={loading} voteAverage={voteAverage}></Movies>
+				</div>
 				<Pag handlePag={handlePag}></Pag>
 			</div>
 		</div>
