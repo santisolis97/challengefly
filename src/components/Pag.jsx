@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+// import styled from 'styled-components'
 
 function Pag(props) {
 	const page = useSelector((state) => state.page)
@@ -9,16 +10,28 @@ function Pag(props) {
 			<nav aria-label="Page navigation example">
 				<ul className="pagination justify-content-center">
 					<li className={page === 1 ? 'page-item disabled' : 'page-item'}>
+						<button className="page-link" onClick={() => props.handlePag('first')}>
+							{'<<'}
+						</button>
+					</li>
+					<li className={page === 1 ? 'page-item disabled' : 'page-item'}>
 						<button className="page-link" onClick={() => props.handlePag('prev')}>
-							Prev
+							{'<'}
 						</button>
 					</li>
 					<li className="page-item disabled">
-						<button className="page-link">{page}</button>
+						<button className="page-link">
+							<span className="text-success">{page + ' / ' + maxPage}</span>
+						</button>
 					</li>
 					<li className={page === maxPage ? 'page-item disabled' : 'page-item'}>
 						<button className="page-link" onClick={() => props.handlePag('next')}>
-							Next
+							{'>'}
+						</button>
+					</li>
+					<li className={page === maxPage ? 'page-item disabled' : 'page-item'}>
+						<button className="page-link" onClick={() => props.handlePag('last')}>
+							{'>>'}
 						</button>
 					</li>
 				</ul>

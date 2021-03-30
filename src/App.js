@@ -8,7 +8,7 @@ import Pag from './components/Pag.jsx'
 import axios from 'axios'
 import StarRatingComponent from 'react-star-rating-component'
 import styled from 'styled-components'
-import { nextPage, prevPage, setMaxPage } from './actions.js'
+import { nextPage, prevPage, setMaxPage, lastPage, resetPage } from './actions.jsx'
 import { useSelector, useDispatch } from 'react-redux'
 // this requires the hidden API KEY
 const API_KEY = process.env.REACT_APP_TMDB_API_KEY
@@ -43,10 +43,17 @@ const App = () => {
 		setStarRating(nextValue)
 	}
 	const handlePag = (type) => {
+		if (type === 'first' && page > 1) {
+			dispatch(resetPage())
+		}
 		if (type === 'prev' && page > 1) {
 			dispatch(prevPage())
-		} else if (type === 'next' && page < results.total_pages) {
+		}
+		if (type === 'next' && page < results.total_pages) {
 			dispatch(nextPage())
+		}
+		if (type === 'last' && page < results.total_pages) {
+			dispatch(lastPage(results.total_pages))
 		}
 	}
 	const fetchMovies = () => {

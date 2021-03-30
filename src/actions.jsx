@@ -14,6 +14,10 @@ export const nextPage = () => ({
 export const prevPage = () => ({
 	type: 'PREVPAGE',
 })
+export const lastPage = (payload) => ({
+	type: 'LASTPAGE',
+	payload: payload,
+})
 export const resetPage = () => ({
 	type: 'RESETPAGE',
 })

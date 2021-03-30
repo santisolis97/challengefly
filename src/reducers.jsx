@@ -30,6 +30,11 @@ export default function reducer(state = initialState, action) {
 				...state,
 				maxPage: action.payload,
 			}
+		case 'LASTPAGE':
+			return {
+				...state,
+				page: action.payload,
+			}
 		default:
 			return state
 	}
