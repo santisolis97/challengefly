@@ -8,10 +8,6 @@ export const setMaxPage = (payload) => ({
 	type: 'SETMAXPAGE',
 	payload: payload,
 })
-export const toggleSearch = () => ({
-	//here it toggles the search boolean from on to of or viceversa
-	type: 'TOGGLESEARCH',
-})
 export const nextPage = () => ({
 	type: 'NEXTPAGE',
 })

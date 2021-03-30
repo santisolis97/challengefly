@@ -10,11 +10,6 @@ export default function reducer(state = initialState, action) {
 				...state,
 				searchInput: action.payload,
 			}
-		case 'TOGGLESEARCH':
-			return {
-				...state,
-				search: !state.search,
-			}
 		case 'NEXTPAGE':
 			return {
 				...state,

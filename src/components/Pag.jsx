@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 function Pag(props) {
 	const page = useSelector((state) => state.page)
 	const maxPage = useSelector((state) => state.maxPage)
-	console.log(maxPage)
 	return (
 		<div>
 			<nav aria-label="Page navigation example">
