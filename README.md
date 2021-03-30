@@ -3,9 +3,8 @@
 ## About this project
 
 React project that allows the user to search for movies found in the [TMDb API](https://www.themoviedb.org/documentation/api/)
-
 If you want to see the result, you can go to: https://santisolis97.github.io/challengefly/
-
+Also deployed on: https://challengeflydevs.herokuapp.com
 
 **Technologies and libraries:**
 

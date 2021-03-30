@@ -8,10 +8,9 @@ import Pag from './components/Pag.jsx'
 import axios from 'axios'
 import StarRatingComponent from 'react-star-rating-component'
 import styled from 'styled-components'
-import { toggleSearch, nextPage, prevPage } from './actions.js'
+import { toggleSearch, nextPage, prevPage, setMaxPage } from './actions.js'
 import { useSelector, useDispatch } from 'react-redux'
 // this requires the hidden API KEY
-
 const API_KEY = process.env.REACT_APP_TMDB_API_KEY
 const StarRating = styled.div`
 	font-size: 26px;
@@ -54,55 +53,55 @@ const App = () => {
 			dispatch(nextPage())
 		}
 	}
+	const fetchMovies = () => {
+		switch (search) {
+			case true:
+				return fetchSearch()
 
-	useEffect(() => {
-		window.scrollTo({ top: 0, behavior: 'smooth' })
-		const fetchMovies = () => {
-			// This function fetches the movies from TMDb API.
-			if (search) {
-				// If it is a search it fetches the movies according to the search input
-				fetchSearch()
-			} else {
-				// If it is not a search it fetches the 20 top rated movies
-				fetchTopRatedMovies()
-			}
+			case false:
+				return fetchTopRatedMovies()
 		}
+		dispatch(toggleSearch())
+	}
 
-		const fetchSearch = () => {
-			// This is the search fetching function
-			const url =
-				searchInput === ''
-					? `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_video=false&page=${page}`
-					: `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${searchInput}&page=${page}&include_adult=false`
-			axios
-				.get(url)
-				.then(function (res) {
-					if (searchInput !== '') {
-						setSearchResults(res.data) // here it saves the response into the state
-					} else {
-						//in case the searchInput is empty it shows the top rated movies again
-						setDefResults(res.data)
-						setSearchResults(null)
-					}
-					dispatch(toggleSearch()) // here it toggles the search boolean
+	const fetchSearch = () => {
+		const url =
+			searchInput === ''
+				? `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_video=false&page=${page}`
+				: `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${searchInput}&page=${page}&include_adult=false`
+		axios
+			.get(url)
+			.then(function (res) {
+				if (searchInput !== '') {
+					setSearchResults(res.data) // here it saves the response into the state
+					dispatch(setMaxPage(res.data.total_pages))
+				} else {
+					//in case the searchInput is empty it shows the top rated movies again
+					setDefResults(res.data)
+					setSearchResults(null)
+				}
 
-					setLoading(false) // here it toggles the loading boolean
-				})
-				.catch(function (error) {
-					//here it catches and shows the error(in case there is one)
-					console.log(error)
-				})
-		}
-		const fetchTopRatedMovies = () => {
-			//This function fetches the top rated movies.
-			const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_video=false&page=${page}`
-			axios.get(url).then((res) => {
-				setDefResults(res.data) // here it saves the api response into the state
+				// dispatch(toggleSearch()) // here it toggles the search boolean
 
-				setLoading(false)
+				setLoading(false) // here it toggles the loading boolean
+				window.scrollTo({ top: 0, behavior: 'smooth' })
 			})
-		}
-
+			.catch(function (error) {
+				//here it catches and shows the error(in case there is one)
+				console.log(error)
+			})
+	}
+	const fetchTopRatedMovies = () => {
+		//This function fetches the top rated movies.
+		const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_video=false&page=${page}`
+		axios.get(url).then((res) => {
+			setDefResults(res.data) // here it saves the api response into the state
+			dispatch(setMaxPage(res.data.total_pages))
+			setLoading(false)
+			window.scrollTo({ top: 0, behavior: 'smooth' })
+		})
+	}
+	useEffect(() => {
 		fetchMovies()
 	}, [search, searchInput, dispatch])
 	return (

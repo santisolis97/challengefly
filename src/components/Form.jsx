@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { updateSearchInput, toggleSearch } from '../actions.js'
+import { updateSearchInput, toggleSearch, resetPage } from '../actions.js'
 // This component is the Form that allows you to search for movies in the TMDb.
 function Form() {
 	const dispatch = useDispatch() //dispatch hoook for react-redux
@@ -15,6 +15,7 @@ function Form() {
 		event.preventDefault()
 		dispatch(updateSearchInput(searchInput))
 		dispatch(toggleSearch())
+		dispatch(resetPage())
 	}
 	return (
 		<div>

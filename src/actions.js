@@ -4,6 +4,10 @@ export const updateSearchInput = (payload) => ({
 	type: 'UPDATESEARCHINPUT',
 	payload: payload,
 })
+export const setMaxPage = (payload) => ({
+	type: 'SETMAXPAGE',
+	payload: payload,
+})
 export const toggleSearch = () => ({
 	//here it toggles the search boolean from on to of or viceversa
 	type: 'TOGGLESEARCH',
@@ -13,4 +17,7 @@ export const nextPage = () => ({
 })
 export const prevPage = () => ({
 	type: 'PREVPAGE',
+})
+export const resetPage = () => ({
+	type: 'RESETPAGE',
 })
