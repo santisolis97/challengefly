@@ -8,7 +8,7 @@ import Pag from './components/Pag.jsx'
 import axios from 'axios'
 import StarRatingComponent from 'react-star-rating-component'
 import styled from 'styled-components'
-import { nextPage, prevPage, setMaxPage, lastPage, resetPage } from './actions.jsx'
+import { setMaxPage, setNextPage } from './actions.jsx'
 import { useSelector, useDispatch } from 'react-redux'
 // this requires the hidden API KEY
 const API_KEY = process.env.REACT_APP_TMDB_API_KEY
@@ -42,19 +42,8 @@ const App = () => {
 		setVoteAverage(nextValue * 2)
 		setStarRating(nextValue)
 	}
-	const handlePag = (type) => {
-		if (type === 'first' && page > 1) {
-			dispatch(resetPage())
-		}
-		if (type === 'prev' && page > 1) {
-			dispatch(prevPage())
-		}
-		if (type === 'next' && page < results.total_pages) {
-			dispatch(nextPage())
-		}
-		if (type === 'last' && page < results.total_pages) {
-			dispatch(lastPage(results.total_pages))
-		}
+	const handlePag = (numberOfPage) => {
+		dispatch(setNextPage(numberOfPage))
 	}
 	const fetchMovies = () => {
 		const url =
@@ -92,10 +81,8 @@ const App = () => {
 				<StarRating>
 					<StarRatingComponent name="starRating" value={starRating} onStarClick={onStarClick} />
 				</StarRating>
-				<div>
-					<h3>Top rated movies:</h3>
-					<Movies results={results} loading={loading} voteAverage={voteAverage}></Movies>
-				</div>
+				{searchInput !== '' ? <h3>Search results:</h3> : <h3>Top rated movies:</h3>}
+				<Movies results={results} loading={loading} voteAverage={voteAverage}></Movies>
 				<Pag handlePag={handlePag}></Pag>
 			</div>
 		</div>

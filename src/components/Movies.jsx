@@ -3,6 +3,7 @@ import Movie from './Movie'
 
 // This component shows in a card every movie that is fetched.
 function Movies(props) {
+	console.log(props)
 	return (
 		<div>
 			{props.loading && ( // here it checks if the content is loading or not, if loading it shows a spinner, otherwise it shows the movies

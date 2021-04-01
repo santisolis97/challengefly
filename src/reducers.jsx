@@ -10,30 +10,15 @@ export default function reducer(state = initialState, action) {
 				...state,
 				searchInput: action.payload,
 			}
-		case 'NEXTPAGE':
+		case 'SETNEXTPAGE':
 			return {
 				...state,
-				page: state.page + 1,
-			}
-		case 'PREVPAGE':
-			return {
-				...state,
-				page: state.page - 1,
-			}
-		case 'RESETPAGE':
-			return {
-				...state,
-				page: 1,
+				page: action.payload,
 			}
 		case 'SETMAXPAGE':
 			return {
 				...state,
 				maxPage: action.payload,
-			}
-		case 'LASTPAGE':
-			return {
-				...state,
-				page: action.payload,
 			}
 		default:
 			return state

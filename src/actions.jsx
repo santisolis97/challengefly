@@ -8,16 +8,7 @@ export const setMaxPage = (payload) => ({
 	type: 'SETMAXPAGE',
 	payload: payload,
 })
-export const nextPage = () => ({
-	type: 'NEXTPAGE',
-})
-export const prevPage = () => ({
-	type: 'PREVPAGE',
-})
-export const lastPage = (payload) => ({
-	type: 'LASTPAGE',
+export const setNextPage = (payload) => ({
+	type: 'SETNEXTPAGE',
 	payload: payload,
-})
-export const resetPage = () => ({
-	type: 'RESETPAGE',
 })
