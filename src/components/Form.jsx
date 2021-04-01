@@ -5,7 +5,7 @@ import styled from 'styled-components'
 // This component is the Form that allows you to search for movies in the TMDb.
 const GenreSelect = styled.div`
 	padding: 50px;
-` 
+`
 
 function Form() {
 	const genres = useSelector((state) => state.genres)
@@ -22,9 +22,9 @@ function Form() {
 		dispatch(setNextPage(1))
 	}
 	const handleGenreChange = (event) => {
-		if(event.target.value==="all"){
+		if (event.target.value === 'all') {
 			dispatch(setSelectedGenre(null))
-		}else{
+		} else {
 			dispatch(setSelectedGenre(parseInt(event.target.value)))
 		}
 	}
@@ -49,13 +49,13 @@ function Form() {
 							</div>
 						</div>
 						<GenreSelect className="d-block">
-							<select  className="custom-select" onChange={handleGenreChange}>
+							<select className="custom-select" onChange={handleGenreChange}>
 								<option value="all">Filter by genre</option>
-								{genres.map((item,index) =>
+								{genres.map((item, index) => (
 									<option value={item.id} key={index}>
-									{item.name}
+										{item.name}
 									</option>
-								)}
+								))}
 							</select>
 						</GenreSelect>
 					</form>
