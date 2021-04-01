@@ -2,6 +2,8 @@ const initialState = {
 	searchInput: '',
 	search: false,
 	page: 1,
+	genres: [],
+	selectedGenre: null,
 }
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
@@ -19,6 +21,16 @@ export default function reducer(state = initialState, action) {
 			return {
 				...state,
 				maxPage: action.payload,
+			}
+		case 'SETGENRES':
+			return {
+				...state,
+				genres: action.payload,
+			}
+		case 'SETSELECTEDGENRE':
+			return {
+				...state,
+				selectedGenre: action.payload,
 			}
 		default:
 			return state

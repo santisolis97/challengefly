@@ -12,3 +12,11 @@ export const setNextPage = (payload) => ({
 	type: 'SETNEXTPAGE',
 	payload: payload,
 })
+export const setGenres = (payload) => ({
+	type: 'SETGENRES',
+	payload: payload,
+})
+export const setSelectedGenre = (payload) => ({
+	type: 'SETSELECTEDGENRE',
+	payload: payload,
+})

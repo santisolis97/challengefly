@@ -8,7 +8,7 @@ import Pag from './components/Pag.jsx'
 import axios from 'axios'
 import StarRatingComponent from 'react-star-rating-component'
 import styled from 'styled-components'
-import { setMaxPage, setNextPage } from './actions.jsx'
+import { setGenres, setMaxPage } from './actions.jsx'
 import { useSelector, useDispatch } from 'react-redux'
 // this requires the hidden API KEY
 const API_KEY = process.env.REACT_APP_TMDB_API_KEY
@@ -26,9 +26,9 @@ const App = () => {
 	const [loading, setLoading] = useState(true)
 	const [voteAverage, setVoteAverage] = useState(0)
 	const searchInput = useSelector((state) => state.searchInput)
-	const search = useSelector((state) => state.search)
 	const page = useSelector((state) => state.page)
 	const dispatch = useDispatch()
+	const selectedGenre = useSelector((state) => state.selectedGenre)
 
 	// this function handles the star rating component
 	const onStarClick = (nextValue, prevValue) => {
@@ -42,9 +42,7 @@ const App = () => {
 		setVoteAverage(nextValue * 2)
 		setStarRating(nextValue)
 	}
-	const handlePag = (numberOfPage) => {
-		dispatch(setNextPage(numberOfPage))
-	}
+
 	const fetchMovies = () => {
 		const url =
 			searchInput === '' || searchInput === null
@@ -68,9 +66,24 @@ const App = () => {
 				console.log(error)
 			})
 	}
+	const fetchGenres = () => {
+		const url = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`
+		axios
+			.get(url)
+			.then((res) => {
+				const response = res.data.genres
+				dispatch(setGenres(response))
+			})
+			.catch(function () {
+				//here it catches and shows the error(in case there is one)
+				// console.log(error)
+			})
+	}
 	useEffect(() => {
 		fetchMovies()
-	}, [search, searchInput, dispatch, page])
+		fetchGenres()
+	}, [searchInput, page])
+
 	return (
 		<div className="App">
 			<Header />
@@ -82,8 +95,8 @@ const App = () => {
 					<StarRatingComponent name="starRating" value={starRating} onStarClick={onStarClick} />
 				</StarRating>
 				{searchInput !== '' ? <h3>Search results:</h3> : <h3>Top rated movies:</h3>}
-				<Movies results={results} loading={loading} voteAverage={voteAverage}></Movies>
-				<Pag handlePag={handlePag}></Pag>
+				<Movies results={results} loading={loading} voteAverage={voteAverage} selectedGenre={selectedGenre}></Movies>
+				<Pag />
 			</div>
 		</div>
 	)
