@@ -33,7 +33,6 @@ function Movies(props) {
 								index //here it maps every movie from the results, once it is filtered, to an instance of the Movie component
 							) => (
 								<div key={index} className="col-12 col-md-6 col-lg-4 col-xl-3">
-									{movie.genre_ids}
 									<Movie result={movie} />
 								</div>
 							))}
