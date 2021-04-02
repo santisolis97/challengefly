@@ -36,7 +36,7 @@ function Form() {
 					></input>
 				</div>
 				<button type="submit" className="btn btn-outline-success">
-					Submit
+					Search
 				</button>
 			</form>
 		</Wrapper>

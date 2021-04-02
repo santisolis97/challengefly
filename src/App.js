@@ -26,6 +26,7 @@ const FilterLabel = styled.p`
 	font-weight: lighter;
 `
 const P = styled.p`
+	margin-top: 20px;
 	font-weight: lighter;
 	font-size: 45px;
 `
@@ -108,11 +109,7 @@ const App = () => {
 				<Logo />
 				<Form />
 				{searchInput !== '' ? <P>Search results:</P> : <P>Top rated movies:</P>}
-				<div className="row">
-					<div className="col-6 d-flex justify-content-start">
-						<FilterLabel className="text-left">Filter movies by rating</FilterLabel>
-					</div>
-				</div>
+				<FilterLabel className="text-left">Filter movies by rating</FilterLabel>
 				<div className="row">
 					<div className="col-6 d-flex justify-content-start">
 						<StarRating>
