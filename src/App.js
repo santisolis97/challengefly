@@ -74,9 +74,9 @@ const App = () => {
 				const response = res.data.genres
 				dispatch(setGenres(response))
 			})
-			.catch(function () {
+			.catch(function (error) {
 				//here it catches and shows the error(in case there is one)
-				// console.log(error)
+				console.log(error)
 			})
 	}
 	useEffect(() => {

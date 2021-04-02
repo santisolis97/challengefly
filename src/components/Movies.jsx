@@ -22,12 +22,6 @@ function Movies(props) {
 										props.voteAverage === 0) &&
 									(movie.genre_ids.includes(props.selectedGenre) || props.selectedGenre === null)
 							)
-							// .filter(
-							// 	//here it filters the movie by its rating.
-							// 	(movie) =>
-							// 		((movie.vote_average <= props.voteAverage && movie.vote_average > props.voteAverage - 2) ||
-							// 		props.voteAverage === 0)
-							// )
 							.map((
 								movie,
 								index //here it maps every movie from the results, once it is filtered, to an instance of the Movie component
